@@ -3,7 +3,7 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with hugo](#setup)
+1. [Setup](#setup)
     * [What hugo affects](#what-hugo-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with hugo](#beginning-with-hugo)
@@ -11,73 +11,155 @@
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
+1. [TODOs - What still needs to be done](#todos)
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+A Puppet module for managing [Hugo](https://gohugo.io/) (A static website engine).
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module installs Hugo using pre-built binaries and does not need external package repositories. It's also capable of site generation from VCS (version control system) repositories (see [puppet-vcsrepo][puppetlabs-vcsrepo] for list of supported repository types).
 
 ## Setup
 
-### What hugo affects **OPTIONAL**
+### Setup requirements
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+With the default settings the hugo module **does not install any VCS** software for you. You must specify a package name of preferred VCS before you can use full workflow of this module.
 
-If there's more that they should know about, though, this is the place to mention:
+The hugo module does not automatically create parent directories for the files it manages. Set up any needed directory structures before you start.
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+### What hugo affects
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
-
-### Beginning with hugo
-
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+* module `puppet-hugo` depends on:
+    * [puppetlabs-stdlib][puppetlabs-stdlib];
+    * [puppetlabs-vcsrepo][puppetlabs-vcsrepo];
+    * [lwf-remote_file][lwf-remote_file].
+* system dependencies: `tar`;
+* installs `hugo` executable to `/usr/local/bin` by default.
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+Only install hugo:
+
+```puppet
+include ::hugo
+```
+
+Install executable, clone git repository and generate website out of it:
+
+```puppet
+class {'::hugo':
+    dependencies => ['tar', 'git'],
+    repositories => {
+        '/tmp/test' => {
+            'ensure'   => 'present',
+            'provider' => 'git',
+            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
+            'revision' => 'master',
+        }
+    },
+    sites => {
+        '/var/www/test.org' => {
+            'source' => '/tmp/test',
+        }
+    }
+}
+```
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+### Class: `hugo`
+
+```puppet
+class {'::hugo':
+    manage_dependencies => true,
+    dependencies_ensure => 'latest',
+    dependencies => ['tar', 'git'],
+    manage_package => true,
+    package_ensure => 'present',
+    installation_directory => '/usr/local/bin',
+    version => '0.20.7',
+    owner => 'root',
+    group => 'root',
+    mode => 'ug=rw,o=r,a=x',
+    repositories => {
+        '/tmp/test' => {
+            'ensure'   => 'present',
+            'provider' => 'git',
+            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
+            'revision' => 'master',
+        }
+    },
+    sites => {
+        '/var/www/test.org' => {
+            'source' => '/tmp/test',
+        }
+    }
+}
+```
+
+### Class: `hugo::packages`
+
+```puppet
+class {'::hugo::packages':
+    manage_dependencies => true,
+    dependencies_ensure => 'latest',
+    dependencies        => ['git', 'tar']
+}
+```
+
+### Class: `hugo::install`
+
+```puppet
+class {'::hugo::install':
+    manage_package         => true,
+    package_ensure         => 'present',
+    installation_directory => '/usr/local/bin',
+    version                => '0.20.7',
+    owner                  => 'root',
+    group                  => 'root',
+    mode                   => 'ug=rw,o=r,a=x'
+}
+```
+
+### Class: `hugo::repository`
+
+```puppet
+class {'::hugo::repository':
+    repositories => {
+        '/tmp/test' => {
+            'ensure'   => 'present',
+            'provider' => 'git',
+            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
+            'revision' => 'master',
+        }
+    }
+}
+```
+
+### Class: `hugo::compile`
+
+```puppet
+class {'::hugo::compile':
+    hugo_executable => '/usr/local/bin/hugo',
+    sites => {
+        '/var/www/test.org' => {
+            'source' => '/tmp/test',
+        }
+    }
+}
+```
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+See [metadata.json](metadata.json) for supported platforms.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+TODO.
 
-## Release Notes/Contributors/Etc. **Optional**
+## TODOs
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+- [ ] avoid specifying vcsrepo for notifications (separate resource or subscribe to directory changes);
+- [ ] supported platforms;
+- [ ] tests;
+- [ ] describe development workflow.

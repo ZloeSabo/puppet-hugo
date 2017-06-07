@@ -8,6 +8,6 @@ hugo::mode: 'ug=rw,o=r,a=x'
 hugo::version: '0.20.7'
 hugo::manage_dependencies: true
 hugo::dependencies_ensure: 'latest'
-hugo::dependencies: []
+hugo::dependencies: ['tar']
 hugo::repositories: {}
 hugo::sites: {}

@@ -11,18 +11,27 @@
 #
 # include ::hugo
 
-Class {'::hugo':
+class {'::hugo':
+    manage_dependencies => true,
+    dependencies_ensure => 'latest',
+    dependencies => ['tar', 'git'],
+    manage_package => true,
+    package_ensure => 'present',
+    installation_directory => '/usr/local/bin',
+    version => '0.20.7',
+    owner => 'root',
+    group => 'root',
+    mode => 'ug=rw,o=r,a=x',
     repositories => {
         '/tmp/test' => {
             'ensure'   => 'present',
             'provider' => 'git',
             'source' => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-            'revision' => '105311bd72858603a278c723b79a9027798b7eca',
-            # 'revision' => 'e842ba8cdeac6e2bacc9c58697b4e80bab10c26e',
+            'revision' => 'master',
         }
     },
     sites => {
-        '/var/www/static.saboteur.vm' => {
+        '/var/www/test.org' => {
             'source' => '/tmp/test',
         }
     }

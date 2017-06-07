@@ -1,35 +1,73 @@
 # Class: hugo
 # ===========================
 #
-# Full description of class hugo here.
+# Manages installation of hugo executable and compilation of repos.
 #
 # Parameters
 # ----------
 #
 # Document parameters here.
 #
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
+# Here you should define a list of variables that this module would require.
+#
+# * `manage_dependencies`
+# Should module manage system dependencies? Type: Boolean Default: true
+#
+# * `dependencies_ensure`
+# Should module ensure that dependencies are present? Type: Boolean Default: 'latest'
+#
+# * `dependencies`
+# Package names, which required for module to function. Type: Array[String] Default: platform dependent
+#
+# * `manage_package`
+# Should module manage installation of Hugo executable? Type: Boolean Default: true
+#
+# * `package_ensure`
+# Should module ensure that Hugo executable is present? Type: Boolean Default: true
+#
+# * `installation_directory`
+# Directory to install Hugo executable. Type: String Default: '/usr/local/bin'
+#
+# * `version`
+# Version of Hugo executable to install. Type: String Default: '0.20.7'
+#
+# * `owner`
+# User ownership of Hugo executable. Type: String Default: 'root'
+#
+# * `group`
+# Group ownership of Hugo executable. Type: String Default: 'root'
+#
+# * `mode`
+# Access permissions of Hugo executable. Type: String Default: 'ug=rw,o=r,a=x'
+#
+# * `repositories`
+# Repositories with Hugo sources to clone. Key is a target directory, value is settings, accepted by puppet-vcsrepo. Type: Hash Default: {}
+#
+# * `sites`
+# Mapping between Hugo source directories and targets for static generation. Type: Hash Default: {}
 #
 # Variables
 # ----------
 #
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
 #
 # Examples
 # --------
 #
 # @example
-#    class { 'hugo':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    class {'::hugo':
+#        repositories => {
+#            '/tmp/test' => {
+#                'ensure'   => 'present',
+#                'provider' => 'git',
+#                'source' => 'https://github.com/ZloeSabo/hugo-testdrive.git',
+#                'revision' => 'master',
+#            }
+#        },
+#        sites => {
+#            '/var/www/test.org' => {
+#                'source' => '/tmp/test',
+#            }
+#        }
 #    }
 #
 # Authors
