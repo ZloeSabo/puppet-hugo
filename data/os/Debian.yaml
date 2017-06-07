@@ -1,0 +1,4 @@
+---
+hugo::dependencies:
+  - 'tar'
+  - 'git-core'
