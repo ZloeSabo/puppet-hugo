@@ -15,9 +15,9 @@
 
 ## Description
 
-A Puppet module for managing [Hugo](https://gohugo.io/) (A static website engine).
+A Puppet module for managing [Hugo][hugo]) (A static website engine).
 
-This module installs Hugo using pre-built binaries and does not need external package repositories. It's also capable of site generation from VCS (version control system) repositories (see [puppet-vcsrepo][puppetlabs-vcsrepo] for list of supported repository types).
+This module installs Hugo using pre-built binaries and does not need external package repositories. It's also capable of site generation from VCS (version control system) repositories.
 
 ## Setup
 
@@ -26,6 +26,8 @@ This module installs Hugo using pre-built binaries and does not need external pa
 With the default settings the hugo module **does not install any VCS** software for you. You must specify a package name of preferred VCS before you can use full workflow of this module.
 
 The hugo module does not automatically create parent directories for the files it manages. Set up any needed directory structures before you start.
+
+For repository parameters and list of supported VCS see [puppetlabs-vcsrepo][puppetlabs-vcsrepo].
 
 ### What hugo affects
 
@@ -163,3 +165,8 @@ TODO.
 - [ ] supported platforms;
 - [ ] tests;
 - [ ] describe development workflow.
+
+[hugo]: https://gohugo.io/
+[puppetlabs-vcsrepo]: https://github.com/puppetlabs/puppetlabs-vcsrepo
+[puppetlabs-stdlib]: https://github.com/puppetlabs/puppetlabs-stdlib
+[lwf-remote_file]: https://github.com/lwf/puppet-remote_file
