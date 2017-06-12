@@ -17,23 +17,18 @@
 
 A Puppet module for managing [Hugo][hugo]) (A static website engine).
 
-This module installs Hugo using pre-built binaries and does not need external package repositories. It's also capable of site generation from VCS (version control system) repositories.
+This module installs Hugo using pre-built binaries and does not need external package repositories.
 
 ## Setup
 
 ### Setup requirements
 
-With the default settings the hugo module **does not install any VCS** software for you. You must specify a package name of preferred VCS before you can use full workflow of this module.
-
 The hugo module does not automatically create parent directories for the files it manages. Set up any needed directory structures before you start.
-
-For repository parameters and list of supported VCS see [puppetlabs-vcsrepo][puppetlabs-vcsrepo].
 
 ### What hugo affects
 
 * module `puppet-hugo` depends on:
     * [puppetlabs-stdlib][puppetlabs-stdlib];
-    * [puppetlabs-vcsrepo][puppetlabs-vcsrepo];
     * [lwf-remote_file][lwf-remote_file].
 * system dependencies: `tar`;
 * installs `hugo` executable to `/usr/local/bin` by default.
@@ -46,19 +41,11 @@ Only install hugo:
 include ::hugo
 ```
 
-Install executable, clone git repository and generate website out of it:
+Install executable generate website out of it:
 
 ```puppet
 class {'::hugo':
-    dependencies => ['tar', 'git'],
-    repositories => {
-        '/tmp/test' => {
-            'ensure'   => 'present',
-            'provider' => 'git',
-            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-            'revision' => 'master',
-        }
-    },
+    dependencies => ['tar'],
     sites => {
         '/var/www/test.org' => {
             'source' => '/tmp/test',
@@ -123,21 +110,6 @@ class {'::hugo::install':
 }
 ```
 
-### Class: `hugo::repository`
-
-```puppet
-class {'::hugo::repository':
-    repositories => {
-        '/tmp/test' => {
-            'ensure'   => 'present',
-            'provider' => 'git',
-            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-            'revision' => 'master',
-        }
-    }
-}
-```
-
 ### Class: `hugo::compile`
 
 ```puppet
@@ -161,12 +133,10 @@ TODO.
 
 ## TODOs
 
-- [ ] avoid specifying vcsrepo for notifications (separate resource or subscribe to directory changes);
 - [ ] supported platforms;
 - [ ] tests;
 - [ ] describe development workflow.
 
 [hugo]: https://gohugo.io/
-[puppetlabs-vcsrepo]: https://github.com/puppetlabs/puppetlabs-vcsrepo
 [puppetlabs-stdlib]: https://github.com/puppetlabs/puppetlabs-stdlib
 [lwf-remote_file]: https://github.com/lwf/puppet-remote_file

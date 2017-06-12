@@ -22,14 +22,6 @@ class {'::hugo':
     owner => 'root',
     group => 'root',
     mode => 'ug=rw,o=r,a=x',
-    repositories => {
-        '/tmp/test' => {
-            'ensure'   => 'present',
-            'provider' => 'git',
-            'source' => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-            'revision' => 'master',
-        }
-    },
     sites => {
         '/var/www/test.org' => {
             'source' => '/tmp/test',

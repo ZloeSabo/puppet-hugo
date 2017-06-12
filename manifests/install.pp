@@ -20,7 +20,7 @@ class hugo::install(
             }
         }
 
-        $source = "https://github.com/spf13/hugo/releases/download/v${version}/hugo_${version}_${::kernel}-${arch}bit.tar.gz"
+        $source = "https://github.com/spf13/hugo/releases/download/v${version}/hugo_${version}_${facts[kernel]}-${arch}bit.tar.gz"
         $tmp_path = "/tmp/hugo.tar.gz"
         $executable_path = "${installation_directory}/hugo"
         

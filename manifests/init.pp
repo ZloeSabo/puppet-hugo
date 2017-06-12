@@ -40,9 +40,6 @@
 # * `mode`
 # Access permissions of Hugo executable. Type: String Default: 'ug=rw,o=r,a=x'
 #
-# * `repositories`
-# Repositories with Hugo sources to clone. Key is a target directory, value is settings, accepted by puppet-vcsrepo. Type: Hash Default: {}
-#
 # * `sites`
 # Mapping between Hugo source directories and targets for static generation. Type: Hash Default: {}
 #
@@ -55,14 +52,6 @@
 #
 # @example
 #    class {'::hugo':
-#        repositories => {
-#            '/tmp/test' => {
-#                'ensure'   => 'present',
-#                'provider' => 'git',
-#                'source' => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-#                'revision' => 'master',
-#            }
-#        },
 #        sites => {
 #            '/var/www/test.org' => {
 #                'source' => '/tmp/test',
@@ -91,20 +80,13 @@ class hugo(
     String $owner,
     String $group,
     String $mode,
-    Hash[String, Hash] $repositories,
     Hash[String, Hash] $sites
 ) {
     contain ::hugo::packages
     contain ::hugo::install
-    contain ::hugo::repository
     contain ::hugo::compile
 
     Class['::hugo::packages']
     ->Class['::hugo::install']
-    ->Class['::hugo::repository']
     ->Class['::hugo::compile']
-
-    $repositories.each |String $path, Hash $_| {
-        Vcsrepo[$path] ~> Exec["compile:${path}"]
-    }
 }
