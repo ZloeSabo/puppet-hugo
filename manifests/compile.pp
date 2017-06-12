@@ -5,10 +5,10 @@ class hugo::compile(
     $sites.each |String $target, Hash $site| {
         $source = $site[source]
         hugo::resource::website {"hugo:website:${source}":
-            source => $source,
-            target => $target,
+            source               => $source,
+            target               => $target,
             additional_arguments => $site[additional_arguments],
-            refreshonly => true
+            refreshonly          => true,
         }
     }
 }
