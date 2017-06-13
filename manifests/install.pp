@@ -7,9 +7,12 @@ class hugo::install(
     String $group = $hugo::group,
     String $mode = $hugo::mode
 ) {
+    $executable_path = "${installation_directory}/hugo"
+    $tmp_path = '/tmp/hugo.tar.gz'
+
     if ($manage_package) {
         case $facts['architecture'] {
-            /(amd64)/: {
+            /(x86_64|amd64)/: {
                 $arch = '64'
             }
             /(x86)/: {
@@ -21,8 +24,6 @@ class hugo::install(
         }
 
         $source = "https://github.com/spf13/hugo/releases/download/v${version}/hugo_${version}_${facts[kernel]}-${arch}bit.tar.gz"
-        $tmp_path = '/tmp/hugo.tar.gz'
-        $executable_path = "${installation_directory}/hugo"
 
         remote_file { 'hugo':
             ensure => $package_ensure,

@@ -3,7 +3,7 @@ $repo_path = '/tmp/test'
 class {'::hugo':
     manage_dependencies => true,
     dependencies_ensure => 'latest',
-    dependencies => ['tar', 'git'],
+    dependencies => ['tar'],
     manage_package => true,
     package_ensure => 'present',
     installation_directory => '/usr/local/bin',

@@ -20,6 +20,53 @@
   "data_provider": null,
   "requirements": [
     {"name": "puppet", "version_requirement": ">= 4.0.0 < 5.0.0"}
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "SLES"
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "9",
+        "10"
+      ]
+    },
+    {
+      "operatingsystem": "NetBSD"
+    },
+    {
+      "operatingsystem": "Archlinux"
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "12.04",
+        "16.04"
+      ]
+    }
   ]
 }
 

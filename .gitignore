@@ -4,3 +4,5 @@ vendor/*
 .vagrant/*
 spec/fixtures/manifests/
 spec/fixtures/modules/
+.ruby-version
+.ruby-gemset

@@ -7,6 +7,7 @@ class hugo::compile(
         hugo::resource::website {"hugo:website:${source}":
             source               => $source,
             target               => $target,
+            hugo_executable      => $hugo_executable,
             additional_arguments => $site[additional_arguments],
             refreshonly          => true,
         }
