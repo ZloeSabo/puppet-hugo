@@ -30,7 +30,5 @@ RSpec.configure do |c|
   default_facts.merge!(YAML.load(File.read(File.expand_path('../default_module_facts.yml', __FILE__)))) if File.exist?(File.expand_path('../default_module_facts.yml', __FILE__))
   c.default_facts = default_facts
   c.mock_with :rspec
-  # c.after(:suite) do
-  #   RSpec::Puppet::Coverage.report!
-  # end
+  RSpec::Puppet::Coverage.filters.push('Exec[compile:/tmp/somesource]') #its created by init, but not in scope of that test
 end

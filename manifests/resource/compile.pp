@@ -1,6 +1,6 @@
-define hugo::resource::website (
-    String $source,
+define hugo::resource::compile (
     String $target,
+    String $source = $name,    
     Boolean $refreshonly = false,
     String $additional_arguments = '',
     String $hugo_executable = "${hugo::installation_directory}/hugo"

@@ -1,3 +1,5 @@
+#Requires you to install git and puppetlabs-vcsrepo first
+
 $repo_path = '/tmp/test'
 
 class {'::hugo':
@@ -12,17 +14,18 @@ class {'::hugo':
     group => 'root',
     mode => 'ug=rw,o=r,a=x',
     sites => {
-        '/tmp/compiled' => {
-            'source' => $repo_path,
+        $repo_path => {
+            'target' => '/tmp/compiled'
         }
     }
 }
 
 vcsrepo { $repo_path:
-  ensure   => present,
-  provider => git,
-  source   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-  revision => 'master'
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
+    # revision => 'e842ba8cdeac6e2bacc9c58697b4e80bab10c26e',
+    revision => 'master'
 }
 
-Vcsrepo[$repo_path] ~> Hugo::Resource::Website["hugo:website:${repo_path}"]
+Vcsrepo[$repo_path] ~> Hugo::Resource::Compile[$repo_path]

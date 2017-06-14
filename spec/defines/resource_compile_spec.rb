@@ -1,6 +1,6 @@
 require 'spec_helper'
-describe 'hugo::resource::website', type: :define do
-    let(:title) { 'generated website' }
+describe 'hugo::resource::compile', type: :define do
+    let(:title) { 'compile static website' }
 
     let(:params) do
         {

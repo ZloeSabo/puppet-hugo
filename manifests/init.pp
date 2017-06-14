@@ -80,13 +80,14 @@ class hugo(
     String $owner,
     String $group,
     String $mode,
-    Hash[String, Hash] $sites
+    Hash[String, Hash] $sites,
+    Hash[String, Variant[String, Boolean]] $compile_defaults
 ) {
     contain ::hugo::packages
     contain ::hugo::install
-    contain ::hugo::compile
+
+    create_resources('hugo::resource::compile', $sites, $compile_defaults)
 
     Class['::hugo::packages']
     ->Class['::hugo::install']
-    ->Class['::hugo::compile']
 }
