@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+#Those are not in context of current test
+RSpec::Puppet::Coverage.filters.push('Exec[compile:/tmp/somesource:/tmp/compiled]')
+RSpec::Puppet::Coverage.filters.push('File[version_lock:/tmp/somesource:/tmp/compiled:someversion]')
+
 describe 'hugo', type: :class do
     context 'with default values for all parameters' do
         it { is_expected.to contain_class('hugo') }
@@ -13,8 +17,9 @@ describe 'hugo', type: :class do
             {
                 :sites => {
                     'site1' => {
-                        'target' => '/tmp/compiled',
-                        'source' => '/tmp/somesource'
+                        'target'  => '/tmp/compiled',
+                        'source'  => '/tmp/somesource',
+                        'version' => 'someversion'
                     }
                 },
                 :compile_defaults => {

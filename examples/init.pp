@@ -12,19 +12,30 @@
 # include ::hugo
 
 class {'::hugo':
-    manage_dependencies => true,
-    dependencies_ensure => 'latest',
-    dependencies => ['tar', 'git'],
-    manage_package => true,
-    package_ensure => 'present',
+    manage_dependencies    => true,
+    dependencies_ensure    => 'latest',
+    dependencies           => ['tar', 'git'],
+    manage_package         => true,
+    package_ensure         => 'present',
     installation_directory => '/usr/local/bin',
-    version => '0.20.7',
-    owner => 'root',
-    group => 'root',
-    mode => 'ug=rw,o=r,a=x',
-    sites => {
-        '/var/www/test.org' => {
+    version                => '0.20.7',
+    owner                  => 'root',
+    group                  => 'root',
+    mode                   => 'ug=rw,o=r,a=x',
+    sites                  => {
+        'test.org' => {
             'source' => '/tmp/test',
+            'target' => '/tmp/test.org',
+            'version' => 'aaa'
+        },
+        'test2.org' => {
+            'source' => '/tmp/test',
+            'target' => '/tmp/test2.org',
+            'version' => 'bbb'
         }
+    },
+    compile_defaults       => {
+        'hugo_executable' => '/usr/local/bin/hugo',
+        'refreshonly'     => true
     }
 }

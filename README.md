@@ -45,10 +45,10 @@ Install executable generate website out of it:
 
 ```puppet
 class {'::hugo':
-    dependencies => ['tar'],
     sites => {
-        '/var/www/test.org' => {
-            'source' => '/tmp/test',
+        '/tmp/test' => {
+            'target'  => '/tmp/generated',
+            'version' => 'someversion'
         }
     }
 }
@@ -60,28 +60,31 @@ class {'::hugo':
 
 ```puppet
 class {'::hugo':
-    manage_dependencies => true,
-    dependencies_ensure => 'latest',
-    dependencies => ['tar', 'git'],
-    manage_package => true,
-    package_ensure => 'present',
+    manage_dependencies    => true,
+    dependencies_ensure    => 'latest',
+    dependencies           => ['tar', 'git'],
+    manage_package         => true,
+    package_ensure         => 'present',
     installation_directory => '/usr/local/bin',
-    version => '0.20.7',
-    owner => 'root',
-    group => 'root',
-    mode => 'ug=rw,o=r,a=x',
-    repositories => {
-        '/tmp/test' => {
-            'ensure'   => 'present',
-            'provider' => 'git',
-            'source'   => 'https://github.com/ZloeSabo/hugo-testdrive.git',
-            'revision' => 'master',
+    version                => '0.20.7',
+    owner                  => 'root',
+    group                  => 'root',
+    mode                   => 'ug=rw,o=r,a=x',
+    sites                  => {
+        'test.org' => {
+            'source' => '/tmp/test',
+            'target' => '/tmp/test.org',
+            'version' => 'aaa'
+        },
+        'test2.org' => {
+            'source' => '/tmp/test',
+            'target' => '/tmp/test2.org',
+            'version' => 'bbb'
         }
     },
-    sites => {
-        '/var/www/test.org' => {
-            'source' => '/tmp/test',
-        }
+    compile_defaults       => {
+        'hugo_executable' => '/usr/local/bin/hugo',
+        'refreshonly'     => true
     }
 }
 ```
@@ -110,16 +113,16 @@ class {'::hugo::install':
 }
 ```
 
-### Class: `hugo::compile`
+### Resource: `hugo::resource::compile`
 
 ```puppet
-class {'::hugo::compile':
-    hugo_executable => '/usr/local/bin/hugo',
-    sites => {
-        '/var/www/test.org' => {
-            'source' => '/tmp/test',
-        }
-    }
+hugo::resource::compile {'human.test.org':
+    target               => '/tmp/human.test.org',
+    version              => 'someversion',
+    source               => '/tmp/test',
+    refreshonly          => true,
+    additional_arguments => '',
+    hugo_executable      => '/usr/local/bin/hugo'
 }
 ```
 
@@ -133,8 +136,6 @@ TODO.
 
 ## TODOs
 
-- [ ] supported platforms;
-- [ ] tests;
 - [ ] describe development workflow.
 
 [hugo]: https://gohugo.io/
