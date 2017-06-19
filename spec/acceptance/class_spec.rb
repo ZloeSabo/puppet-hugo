@@ -1,0 +1,25 @@
+require 'spec_helper_acceptance'
+
+describe 'hugo class:' do
+  context 'default parameters' do
+    # Using puppet_apply as a helper
+    it 'works idempotently with no errors' do
+      pp = <<-EOS
+      class { 'hugo': }
+      EOS
+
+      # Run it twice and test for idempotency
+      apply_manifest(pp, catch_failures: true)
+      expect(apply_manifest(pp, catch_failures: true).exit_code).to be_zero
+    end
+
+    describe file('/usr/local/bin/hugo') do
+      it { is_expected.to be_executable }
+    end
+
+    describe command('hugo version') do
+      its(:stdout) { should match /Hugo Static Site Generator/ }
+      its(:exit_status) { should eq 0 }
+    end
+  end
+end

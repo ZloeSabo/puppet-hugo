@@ -36,7 +36,7 @@ class hugo::install(
     }
 
     exec {"install:${executable_path}":
-        command     => "mv ${executable_path} ${tmp_path} && tar xf ${tmp_path} -C ${installation_directory} hugo && rm -f ${tmp_path}",
+        command     => "mv ${executable_path} ${tmp_path} && tar xzf ${tmp_path} -C ${installation_directory} hugo && rm -f ${tmp_path}",
         path        => '/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
         refreshonly => true,
     }

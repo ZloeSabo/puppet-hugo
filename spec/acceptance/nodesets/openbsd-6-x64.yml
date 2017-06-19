@@ -1,0 +1,12 @@
+HOSTS:
+  openbsd-6-x64:
+    roles:
+      - agent
+      - default
+    platform: openbsd-6-x64
+    hypervisor: vagrant
+    box: ryanmaclean/openbsd-6.0
+CONFIG:
+  type: foss
+...
+# vim: syntax=yaml

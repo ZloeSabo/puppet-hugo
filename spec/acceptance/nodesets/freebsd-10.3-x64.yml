@@ -1,0 +1,13 @@
+HOSTS:
+  freebsd-10.3-RELEASE-x64:
+    roles:
+      - agent
+      - default
+    platform: freebsd-10-x64
+    hypervisor: vagrant
+    box: bento/freebsd-10.3
+    network_mac: ~
+CONFIG:
+  type: foss
+...
+# vim: syntax=yaml
