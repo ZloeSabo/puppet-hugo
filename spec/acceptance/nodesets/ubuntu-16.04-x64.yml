@@ -1,0 +1,13 @@
+---
+HOSTS:
+  ubuntu-16.04-x64:
+    roles:
+      - agent
+      - default
+    platform: ubuntu-1604-amd64
+    hypervisor: vagrant
+    box: puppetlabs/ubuntu-16.04-64-nocm
+CONFIG:
+  type: foss
+...
+# vim: syntax=yaml

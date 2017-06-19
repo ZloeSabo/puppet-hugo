@@ -6,3 +6,5 @@ spec/fixtures/manifests/
 spec/fixtures/modules/
 .ruby-version
 .ruby-gemset
+junit
+log
