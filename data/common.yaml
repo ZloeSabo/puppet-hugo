@@ -8,7 +8,7 @@ hugo::mode: 'ug=rw,o=r,a=x'
 hugo::version: '0.20.7'
 hugo::manage_dependencies: true
 hugo::dependencies_ensure: 'latest'
-hugo::dependencies: ['tar']
+hugo::dependencies: []
 hugo::sites: {}
 hugo::compile_defaults:
   hugo_executable: '/usr/local/bin/hugo'

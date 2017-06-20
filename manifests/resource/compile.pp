@@ -1,6 +1,6 @@
 define hugo::resource::compile (
     String $target,
-    String $version,    
+    String $version,
     String $source = $name,
     Boolean $refreshonly = true,
     String $additional_arguments = '',
@@ -10,14 +10,14 @@ define hugo::resource::compile (
     $fixed_target = regsubst($target, '/', '_', 'G')
 
     file { "version_lock:${source}:${target}:${version}":
-        path => "/tmp/hugo-lock-${fixed_source}-${fixed_target}",
+        ensure  => 'file',
+        path    => "/tmp/hugo-lock-${fixed_source}-${fixed_target}",
         content => $version,
-        ensure => 'file'
     }
 
     exec { "compile:${source}:${target}":
         command     => "${hugo_executable} -s ${source} -d ${target} ${additional_arguments}",
-        refreshonly => $refreshonly
+        refreshonly => $refreshonly,
     }
 
     File["version_lock:${source}:${target}:${version}"] ~> Exec["compile:${source}:${target}"]

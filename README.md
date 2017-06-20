@@ -11,7 +11,6 @@
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
-1. [TODOs - What still needs to be done](#todos)
 
 ## Description
 
@@ -132,11 +131,17 @@ See [metadata.json](metadata.json) for supported platforms.
 
 ## Development
 
-TODO.
+### Running tests
 
-## TODOs
+```bash
+gem install bundler
+bundle install --path vendor
+bundle exec rake test
+```
 
-- [ ] describe development workflow.
+### Contributing
+
+Please make sure that test cases, syntax and documentation checks are passing.
 
 [hugo]: https://gohugo.io/
 [puppetlabs-stdlib]: https://github.com/puppetlabs/puppetlabs-stdlib
