@@ -1,4 +1,6 @@
-# hugo
+# puppet-hugo
+
+[![Build Status](https://travis-ci.org/ZloeSabo/puppet-hugo.svg?branch=master)](https://travis-ci.org/ZloeSabo/puppet-hugo)
 
 #### Table of Contents
 
