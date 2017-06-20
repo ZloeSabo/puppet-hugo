@@ -1,12 +1,12 @@
 {
-  "name": "puppet-hugo",
+  "name": "zloesabo-hugo",
   "version": "0.1.0",
-  "author": "zloesabo",
+  "author": "Evgeny Soynov",
   "summary": "Manage Hugo with puppet",
   "license": "Apache-2.0",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "https://github.com/ZloeSabo/puppet-hugo.git",
+  "project_page": "https://github.com/ZloeSabo/puppet-hugo",
+  "issues_url": "https://github.com/ZloeSabo/puppet-hugo/issues",
   "dependencies": [
     {
       "name":"puppetlabs-stdlib",
