@@ -3,12 +3,6 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'metadata-json-lint/rake_task'
 require 'beaker/tasks/test'
 
-
-if RUBY_VERSION >= '1.9'
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-end
-
 PuppetLint.configuration.ignore_paths = ['spec/**/*.pp', 'pkg/**/*.pp', 'vendor/**/*', '.vendor/**/*', 'examples/**']
 PuppetLint.configuration.log_format = '%{path}:%{line}:%{check}:%{KIND}:%{message}'
 PuppetLint.configuration.fail_on_warnings = true
@@ -34,9 +28,8 @@ end
 
 desc 'Run metadata_lint, lint, validate, and spec tests.'
 task test: [
-    :metadata_lint,
-    :lint,
-    :validate,
-    :spec
+  :metadata_lint,
+  :lint,
+  :validate,
+  :spec
 ]
-

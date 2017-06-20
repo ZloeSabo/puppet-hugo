@@ -1,9 +1,9 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'].to_s : ['~> 4.0']
-gem 'puppet', puppetversion, :require => false, :groups => [:test]
-gem 'puppet-lint', '>= 1.0.0'
 gem 'facter', '~> 2.4'
+gem 'puppet', puppetversion, require: false, groups: [:test]
+gem 'puppet-lint', '>= 1.0.0'
 
 group :test do
   gem 'coveralls',                                                      require: false if RUBY_VERSION >= '2.0.0'
@@ -23,12 +23,19 @@ group :test do
   gem 'rspec-puppet', '~> 2.5',                                         require: false
   gem 'rspec-puppet-facts',                                             require: false
   gem 'rspec-puppet-utils',                                             require: false
+  gem 'rubocop',                                                        require: false if RUBY_VERSION >= '2.3.0'
   gem 'rubocop-rspec', '~> 1.6',                                        require: false if RUBY_VERSION >= '2.3.0'
   gem 'simplecov-console',                                              require: false if RUBY_VERSION >= '2.0.0'
 end
 
 group :acceptance do
-  gem 'beaker-rspec',                                                   require: false
   gem 'beaker-puppet_install_helper',                                   require: false
+  gem 'beaker-rspec',                                                   require: false
   gem 'serverspec',                                                     require: false
+end
+
+group :development do
+  gem 'guard-rake',                                                     require: false
+  gem 'travis',                                                         require: false
+  gem 'travis-lint',                                                    require: false
 end
