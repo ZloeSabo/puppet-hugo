@@ -18,8 +18,8 @@ describe 'hugo class:' do
     end
 
     describe command('hugo version') do
-      its(:stdout) { should match /Hugo Static Site Generator/ }
-      its(:exit_status) { should eq 0 }
+      its(:stdout) { is_expected.to match %r{Hugo Static Site Generator} }
+      its(:exit_status) { is_expected.to eq 0 }
     end
   end
 end

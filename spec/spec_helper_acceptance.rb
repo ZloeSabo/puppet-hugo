@@ -1,19 +1,19 @@
 require 'beaker-rspec'
 
 options = {
-  :default_action   => 'gem_install',
+  default_action: 'gem_install'
 }
 
-block_on hosts, { :run_in_parallel => false } do |host|
-  on host, 'pkg install -y devel/ruby-gems' if host['platform'] =~ /freebsd/
-  if host['platform'] =~ /openbsd/ then
+block_on hosts, run_in_parallel: false do |host|
+  on host, 'pkg install -y devel/ruby-gems' if host['platform'] =~ %r{freebsd}
+  if host['platform'] =~ %r{openbsd}
     version = ''
-    if host['platform'] =~ /openbsd-6/ then
+    if host['platform'] =~ %r{openbsd-6}
       on host, '. /root/.profile && pkg_add ruby-2.3.1p1'
       version = '23'
     end
 
-    %w(ruby irb gem).each do |executable|
+    %w[ruby irb gem].each do |executable|
       on host, "ln -sf /usr/local/bin/#{executable}#{version} /usr/local/bin/#{executable}"
     end
   end
@@ -30,7 +30,7 @@ RSpec.configure do |c|
   c.before :suite do
     # Install module to all hosts
     hosts.each do |host|
-      install_dev_puppet_module_on(host, :source => module_root, :module_name => 'hugo')
+      install_dev_puppet_module_on(host, source: module_root, module_name: 'hugo')
       # Install dependencies
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), acceptable_exit_codes: [0]
       on host, puppet('module', 'install', 'lwf-remote_file'), acceptable_exit_codes: [0]
