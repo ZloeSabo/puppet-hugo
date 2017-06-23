@@ -1,0 +1,18 @@
+---
+HOSTS:
+  ubuntu-1204-x64:
+    platform: ubuntu-12.04-amd64
+    hypervisor: docker
+    image: ubuntu:12.04
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'apt-get install -y net-tools wget locales'
+      - 'locale-gen en_US.UTF-8'
+      - 'ln -s /opt/puppetlabs/bin/puppet /usr/local/bin/puppet'
+CONFIG:
+  trace_limit: 200
+  masterless: true
+  foss: true
+...
+# vim: syntax=yaml

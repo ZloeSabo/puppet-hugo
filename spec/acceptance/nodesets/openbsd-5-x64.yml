@@ -1,0 +1,12 @@
+HOSTS:
+  openbsd-5-x64:
+    roles:
+      - agent
+      - default
+    platform: openbsd-5-x64
+    hypervisor: vagrant
+    box: kaorimatz/openbsd-5.9-amd64
+CONFIG:
+  type: foss
+...
+# vim: syntax=yaml

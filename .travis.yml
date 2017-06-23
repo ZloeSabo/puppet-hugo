@@ -2,7 +2,7 @@ language: ruby
 sudo: false
 dist: trusty
 cache: bundler
-bundler_args: --without system_tests development
+bundler_args: --without acceptance development
 before_install:
   - bundle -v
   - rm Gemfile.lock || true
@@ -23,6 +23,34 @@ matrix:
     env: PUPPET_VERSION="~> 4.0" CHECK=test
   - rvm: 2.4.0
     env: PUPPET_VERSION="~> 4.0" CHECK=test
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=openbsd-6-x64
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=freebsd-10.3-x64
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/centos-6
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/centos-7
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/debian-7
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/debian-8
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/ubuntu-12.04
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/ubuntu-14.04
+    bundler_args: --without development
+  - rvm: 2.4.0
+    env: PUPPET_VERSION="~> 4.0" CHECK=beaker BEAKER_set=docker/ubuntu-16.04
+    bundler_args: --without development
+
 branches:
   only:
   - master
