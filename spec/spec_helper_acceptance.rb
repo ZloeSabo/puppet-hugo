@@ -1,14 +1,13 @@
-#require 'beaker-rspec'
+# require 'beaker-rspec'
 require 'voxpupuli/acceptance/spec_helper_acceptance'
 
 configure_beaker do |host|
   if fact_on(host, 'os.family') == %r{freebsd}
     install_package(host, 'ruby-gems')
-    %w[ruby irb gem].each do |executable|
+    ['ruby', 'irb', 'gem'].each do |executable|
       on host, "ln -sf /usr/local/bin/#{executable}#{version} /usr/local/bin/#{executable}"
     end
   end
-
 end
 
 # options = {

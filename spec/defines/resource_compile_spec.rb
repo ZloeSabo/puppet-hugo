@@ -9,7 +9,7 @@ describe 'hugo::resource::compile', type: :define do
       version: 'someversion',
       refreshonly: true,
       additional_arguments: 'arguments',
-      hugo_executable: '/a/b/hugo'
+      hugo_executable: '/a/b/hugo',
     }
   end
 
@@ -21,7 +21,7 @@ describe 'hugo::resource::compile', type: :define do
     it do
       is_expected.to contain_file('version_lock:/a/b/source:/a/b/target:someversion').with(
         content: 'someversion',
-        path: '/tmp/hugo-lock-_a_b_source-_a_b_target'
+        path: '/tmp/hugo-lock-_a_b_source-_a_b_target',
       ).that_notifies('Exec[compile:/a/b/source:/a/b/target]')
     end
   end
