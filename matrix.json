@@ -1,0 +1,68 @@
+{
+    "platforms": [
+        {
+            "label": "Ubuntu-16.04",
+            "provider": "provision::docker",
+            "image": "litmusimage/ubuntu:16.04"
+        },
+        {
+            "label": "Ubuntu-18.04",
+            "provider": "provision::docker",
+            "image": "litmusimage/ubuntu:18.04"
+        },
+        {
+            "label": "Ubuntu-20.04",
+            "provider": "provision::docker",
+            "image": "litmusimage/ubuntu:18.04"
+        },
+        {
+            "label": "Ubuntu-20.04",
+            "provider": "provision::docker",
+            "image": "litmusimage/ubuntu:18.04"
+        },
+        {
+            "label": "CentOS-6",
+            "provider": "provision::docker",
+            "image": "litmusimage/centos:6"
+        },
+        {
+            "label": "CentOS-7",
+            "provider": "provision::docker",
+            "image": "litmusimage/centos:7"
+        },
+        {
+            "label": "CentOS-6",
+            "provider": "provision::docker",
+            "image": "litmusimage/centos:6"
+        },
+        {
+            "label": "CentOS-8",
+            "provider": "provision::docker",
+            "image": "litmusimage/centos:8"
+        },
+        {
+            "label": "CentOS-8",
+            "provider": "provision::docker",
+            "image": "litmusimage/centos:8"
+        },
+        {
+            "label": "Debian-9",
+            "provider": "provision::docker",
+            "image": "litmusimage/debian:9"
+        },
+        {
+            "label": "Debian-10",
+            "provider": "provision::docker",
+            "image": "litmusimage/debian:10"
+        },
+        {
+            "label": "Debian-11",
+            "provider": "provision::docker",
+            "image": "litmusimage/debian:11"
+        }
+    ],
+    "collection": [
+        "puppet6-nightly",
+        "puppet7-nightly"
+    ]
+}

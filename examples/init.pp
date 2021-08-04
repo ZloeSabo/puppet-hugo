@@ -23,14 +23,14 @@ class {'::hugo':
     group                  => 'root',
     mode                   => 'ug=rw,o=r,a=x',
     sites                  => {
-        'test.org' => {
-            'source' => '/tmp/test',
-            'target' => '/tmp/test.org',
+        'test.org'  => {
+            'source'  => '/tmp/test',
+            'target'  => '/tmp/test.org',
             'version' => 'aaa'
         },
         'test2.org' => {
-            'source' => '/tmp/test',
-            'target' => '/tmp/test2.org',
+            'source'  => '/tmp/test',
+            'target'  => '/tmp/test2.org',
             'version' => 'bbb'
         }
     },

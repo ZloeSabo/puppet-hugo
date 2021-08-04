@@ -3,8 +3,8 @@ describe 'hugo::packages', type: :class do
   let(:params) do
     {
       manage_dependencies: true,
-      dependencies: %w[tar other],
-      dependencies_ensure: 'present'
+      dependencies: ['tar', 'other'],
+      dependencies_ensure: 'present',
     }
   end
 

@@ -19,13 +19,13 @@ describe 'hugo', type: :class do
           'site1' => {
             'target' => '/tmp/compiled',
             'source'  => '/tmp/somesource',
-            'version' => 'someversion'
-          }
+            'version' => 'someversion',
+          },
         },
         compile_defaults: {
           'hugo_executable' => '/a/b/hugo',
-          'refreshonly' => false
-        }
+          'refreshonly' => false,
+        },
       }
     end
 
@@ -34,7 +34,7 @@ describe 'hugo', type: :class do
         hugo_executable: '/a/b/hugo',
         refreshonly: false,
         target: '/tmp/compiled',
-        source: '/tmp/somesource'
+        source: '/tmp/somesource',
       )
     end
   end
