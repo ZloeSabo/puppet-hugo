@@ -1,0 +1,14 @@
+{
+    "platforms": [
+        {
+            "label": "Ubuntu-16.04",
+            "provider": "provision::docker",
+            "image": "litmusimage/ubuntu:16.04"
+        }
+    ],
+    "collection": [
+        "puppet5",
+        "puppet6",
+        "puppet7"
+    ]
+}

@@ -1,14 +1,9 @@
-# require 'beaker-rspec'
-require 'voxpupuli/acceptance/spec_helper_acceptance'
+# frozen_string_literal: true
 
-configure_beaker do |host|
-  if fact_on(host, 'os.family') == %r{freebsd}
-    install_package(host, 'ruby-gems')
-    ['ruby', 'irb', 'gem'].each do |executable|
-      on host, "ln -sf /usr/local/bin/#{executable}#{version} /usr/local/bin/#{executable}"
-    end
-  end
-end
+require 'puppet_litmus'
+PuppetLitmus.configure!
+
+require 'spec_helper_acceptance_local' if File.file?(File.join(File.dirname(__FILE__), 'spec_helper_acceptance_local.rb'))
 
 # options = {
 #   default_action: 'gem_install'

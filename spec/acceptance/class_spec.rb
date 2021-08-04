@@ -8,9 +8,7 @@ describe 'hugo class:' do
       class { 'hugo': }
       EOS
 
-      # Run it twice and test for idempotency
-      apply_manifest(pp, catch_failures: true)
-      expect(apply_manifest(pp, catch_failures: true).exit_code).to be_zero
+      idempotent_apply(pp)
     end
 
     describe file('/usr/local/bin/hugo') do
