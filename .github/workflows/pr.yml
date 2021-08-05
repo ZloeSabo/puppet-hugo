@@ -1,4 +1,4 @@
-name: "PR Testing"
+name: "Acceptance tests"
 
 on: [pull_request]
 
@@ -20,7 +20,7 @@ jobs:
         MATRIX=$(cat matrix.json |tr "\n" ' '|sed 's/\s\+/ /g')
         echo  "::set-output name=matrix::$MATRIX"
 
-  Acceptance:
+  acceptance:
     name: "${{matrix.platforms.label}}, ${{matrix.collection}}"
     needs:
       - setup_matrix
